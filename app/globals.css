@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ---- Colors ---- */
+  --color-bg:           #0A0A0A;
+  --color-surface:      #121212;
+  --color-border:       #262626;
+  --color-border-bright:#404040;
+  --color-hairline:     #1A1A1A;
+  --color-body:         #A1A1AA;
+  --color-heading:      #FAFAFA;
+  --color-muted:        #71717A;
+  --color-accent:       #D4A25A;
+  --color-accent-hover: #E6BE7C;
+
+  /* ---- Typography ---- */
+  --font-sans:    var(--font-manrope);
+  --font-display: var(--font-space-grotesk);
+  --font-mono:    var(--font-jetbrains-mono);
+
+  /* ---- Radius ---- */
+  --radius-card: 8px;
+  --radius-chip: 6px;
+
+  /* ---- Layout ---- */
+  --width-col: 720px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base styles — token references only, no raw hex values */
+html {
+  -webkit-font-smoothing: antialiased;
+  /* Animate jumps to #about, #stack, etc. instead of snapping.
+     Sections carry scroll-mt-20 so they clear the sticky nav on arrival. */
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-body);
+  line-height: 1.7;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 25%, transparent);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
+/* On small screens, reduce intro card padding and hero font size */
+@media (max-width: 640px) {
+  .intro-name {
+    font-size: 28px;
+  }
+}
+
+/* ── Accessibility: visible keyboard focus ring ─────────────────────────────── */
+/* Replaces the browser default with our accent colour so it matches the design */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Image loading shimmer ──────────────────────────────────────────────────── */
+/* Sits under the image inside its relative container and is unmounted once the
+   image paints. The sweep is a highlight travelling across a surface-coloured
+   base, so it reads as "loading" rather than as a flash of empty card. */
+.shimmer {
+  background-color: var(--color-surface);
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-border-bright) 55%, transparent) 50%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer-sweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────────── */
+/* Tailwind's motion-reduce: variant handles component-level transitions.
+   This handles anything that might be missed at the global level. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  /* Infinite sweep would strobe at 0.01ms — show a flat surface instead. */
+  .shimmer::after {
+    animation: none;
+  }
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
 }
