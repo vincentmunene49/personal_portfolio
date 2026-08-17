@@ -44,7 +44,7 @@ const EXPERIENCE = [
   {
     company: "Upwork",
     role: "Freelance Developer",
-    dates: "Apr 2025 — Jan 2026",
+    dates: "Apr 2025 — Present",
     description:
       "Contract mobile and backend work, including WebshopR, LiftMindr and Cosecha above. Sole " +
       "developer on most engagements, from Figma file to store listing.",
