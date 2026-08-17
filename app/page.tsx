@@ -10,6 +10,8 @@ import { projects } from "@/content/projects";
 const STACK = [
   "Flutter",
   "FlutterFlow",
+  "Android",
+  "Kotlin",
   "Dart",
   "Firebase",
   "Supabase",
@@ -22,7 +24,6 @@ const STACK = [
   "Jenkins",
 ];
 
-// Most recent first — the timeline renders in array order.
 const EXPERIENCE = [
   {
     company: "Konvergenz",
@@ -32,7 +33,7 @@ const EXPERIENCE = [
       "Building P360, a clinical practitioner tool for Kenya's Digital Health Agency, covering " +
       "professional licensing, CPD, and clinical workflows. Flutter front end, with document " +
       "capture, biometrics, and a Kafka and FCM notification pipeline behind it.",
-  },
+  }, 
   {
     company: "Minet",
     role: "Backend Developer",
@@ -73,7 +74,7 @@ const LINKEDIN_URL = "https://www.linkedin.com/in/vincent-munene-35319822a/";
 const UPWORK_URL   = "https://www.upwork.com/freelancers/~01eb4d10c44e026776?mp_source=share";
 const EMAIL        = "munenevincent49@gmail.com";
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+// ── Page creation
 
 export default function Home() {
   return (
