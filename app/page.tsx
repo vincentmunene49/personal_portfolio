@@ -231,12 +231,22 @@ export default function Home() {
 
         {/* ── Contact ───────────────────────────────────────────────────── */}
         <Section id="contact" title="Contact">
-          <p className="text-[16px] leading-[1.7] text-body">
-            Reach me at{" "}
-            <a href={`mailto:${EMAIL}`} className="text-accent hover:text-accent-hover">
-              {EMAIL}
+          {/* Wraps to its own line on narrow screens rather than crowding the email. */}
+          <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+            <p className="text-[16px] leading-[1.7] text-body">
+              Reach me at{" "}
+              <a href={`mailto:${EMAIL}`} className="text-accent hover:text-accent-hover">
+                {EMAIL}
+              </a>
+            </p>
+            <a
+              href="/vincent-munene-cv.pdf"
+              download
+              className="font-mono text-[14px] tracking-[0.03em] text-accent transition-colors hover:text-accent-hover"
+            >
+              Download CV ↓
             </a>
-          </p>
+          </div>
         </Section>
 
       </main>

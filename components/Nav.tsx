@@ -16,6 +16,16 @@ const LINKS = [
   { href: "/#contact",    label: "Contact" },
 ];
 
+const CV_HREF = "/vincent-munene-cv.pdf";
+
+// Shared by the desktop bar and the mobile dropdown — same button either way.
+// Deliberately tighter than the 6px chip radius and slimmer than the chips'
+// py-1, so the button sits close to nav-link height rather than reading as a pill.
+const CV_BUTTON_CLASS =
+  "inline-flex shrink-0 items-center whitespace-nowrap rounded-[3px] " +
+  "border border-accent px-2.5 py-0.5 font-mono text-[13px] tracking-[0.04em] text-accent " +
+  "transition-colors hover:border-accent-hover hover:text-accent-hover";
+
 function HamburgerIcon() {
   return (
     <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true">
@@ -64,6 +74,20 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
+          {/* ml-3 on top of the row's 22px gap — 34px total, so the action reads
+              as separate from the links rather than as another one.
+              The full label costs ~110px, and at the sm breakpoint the logo plus
+              five links already use most of the 600px row. Shortened to "CV"
+              until md, where there is room for the whole thing. */}
+          <a
+            href={CV_HREF}
+            download
+            className={`ml-3 ${CV_BUTTON_CLASS}`}
+            aria-label="Download CV"
+          >
+            <span className="md:hidden">CV</span>
+            <span className="hidden md:inline">Download CV</span>
+          </a>
         </div>
 
         {/* Hamburger button — visible only on small screens */}
@@ -87,11 +111,20 @@ export default function Nav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="border-b border-hairline py-4 font-mono text-[14px] tracking-[0.04em] text-body transition-colors last:border-b-0 hover:text-heading"
+                className="border-b border-hairline py-4 font-mono text-[14px] tracking-[0.04em] text-body transition-colors hover:text-heading"
               >
                 {l.label}
               </Link>
             ))}
+            {/* self-start stops the flex column stretching it to full width. */}
+            <a
+              href={CV_HREF}
+              download
+              onClick={() => setOpen(false)}
+              className={`my-4 self-start ${CV_BUTTON_CLASS}`}
+            >
+              Download CV
+            </a>
           </div>
         </div>
       )}
